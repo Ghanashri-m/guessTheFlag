@@ -47,12 +47,12 @@ const exitBtn = document.querySelector('.exit-btn');
 
   function populateOptions() {
     TotalFlags.map((item) => {
-      const options =  [item.country];
+      var options =  [];
       for (var i = 0; i < 3; i++) {
-        options.push(getRandomExcept(countries, item.country));
+        options = getRandomExcept(countries, item.country, options);
       }
       options.sort(() => Math.random() - 0.5);
-      optionColl.push({options: options})
+      optionColl.push({options: options});
     })
   };
 
@@ -230,19 +230,24 @@ function contdPlay(){
 }
 
 var getRandomExcept = function(elements, exceptElement){
-  if(elements.length <= 0){
-      return null;
-  }else if(typeof exceptElement !== 'undefined' && elements.length == 1){
-      if(elements[0] === exceptElement) return null;
+  const options = [exceptElement];
+  while (options.length < 4) {
+    if(elements.length <= 0){
+        return null;
+    } else if(typeof exceptElement !== 'undefined' && elements.length == 1){
+        if(elements[0] === exceptElement) return null;
+    }
+  
+    var n = Math.floor(Math.random() * elements.length);
+  
+    if(elements[n] === exceptElement || options.includes(elements[n])){
+        // make one random trip around elements but stop (<elements.length) before the exceptElement
+        n = (n + Math.floor(Math.random() * elements.length)) % elements.length;
+    } else {
+        options.push(elements[n])
+    }
   }
-
-  var n = Math.floor(Math.random() * elements.length);
-
-  if(elements[n] === exceptElement){
-      // make one random trip around elements but stop (<elements.length) before the exceptElement
-      n = (n + Math.floor(Math.random() * elements.length)) % elements.length;
-  }
-  return elements[n];
+  return options;
 };
 
 playSetup();
