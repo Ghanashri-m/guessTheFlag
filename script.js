@@ -155,7 +155,8 @@ quizQuestion.prototype.quizPlay = function(){
 
     // for displaying the options for the above question
     this.optionList[RAND_QUES].options.forEach(function(option, idx){
-        optionsBtns[idx].innerHTML = option.includes(',') ? option.split(',')[0] : option;
+        optionsBtns[idx].innerHTML = option.includes(',') ? option.split(',')[0] :
+        (option.includes(' and ') ? option.split(' and ')[0] : option);
     })
 }
 
