@@ -149,9 +149,9 @@ body{
 
 .option-text{
     position: absolute;
-    left: 100px;
+    left: 80px;
     color: #070707;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     top: 50%;
     transform: translateY(-50%);
 }
