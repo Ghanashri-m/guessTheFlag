@@ -1,10 +1,26 @@
+/* Global variables */
+
+var SCORE;
+var RAND_QUES;
+var NUMS;
 var TotalFlags = [];
 var countries = [];
 let questionColl = [];
 let optionColl = [];
 let answerColl = [];
 
+/*************************** */
+
+const scoreBoard = document.querySelector('.score-board');
+const scoreVal = document.getElementById('score');
+const questionBox = document.querySelector('.question-box');
+const optionBox = document.querySelector('.option-wrapper');
+const playBtn = document.querySelector('.play-btn');
+const exitBtn = document.querySelector('.exit-btn');
+
 (function getFlags() {
+    document.getElementById('play').innerText = 'Loading . . .';
+    playBtn.disabled = true;
     fetch('https://holidayapi.com/v1/countries?pretty&key=79e5bf2c-fc4a-488a-991c-9100a8954f59')
     .then((response) => { 
       return response.json();
@@ -24,6 +40,8 @@ let answerColl = [];
       })
       populateOptions();
       populateAnswers();
+      playBtn.disabled = false;
+      document.getElementById('play').innerText = 'PLAY';
     })
   })();
 
@@ -43,21 +61,6 @@ let answerColl = [];
       answerColl.push(item.options.indexOf(countries[index]));
     })
   }
-
-/* Global variables */
-
-var SCORE;
-var RAND_QUES;
-var NUMS;
-
-/*************************** */
-
-const scoreBoard = document.querySelector('.score-board');
-const scoreVal = document.getElementById('score');
-const questionBox = document.querySelector('.question-box');
-const optionBox = document.querySelector('.option-wrapper');
-const playBtn = document.querySelector('.play-btn');
-const exitBtn = document.querySelector('.exit-btn');
 
 /******************************* */
 
